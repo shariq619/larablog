@@ -1,44 +1,25 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.blog')
 
 @section('title', $post->meta_title ?? $post->title)
 @section('meta_description', $post->meta_description)
 
 @section('content')
-    <div class="container py-5">
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
 
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-
-                <h1 class="mb-3">{{ $post->title }}</h1>
-
-                <div class="mb-3 text-muted">
-                <span>
-                    Category: {{ $post->category->name ?? 'Uncategorized' }}
-                </span>
-                    •
-                    <span>
-                    {{ $post->created_at->format('d M Y') }}
-                </span>
-                </div>
-
-                @if($post->image)
-                    <img src="{{ asset('storage/' . $post->image) }}"
-                         class="img-fluid rounded mb-4"
-                         alt="{{ $post->title }}">
-                @endif
-
-                <div class="content">
                     {!! $post->content !!}
+
+                    <hr class="my-5">
+
+                    <a href="{{ route('blog.index') }}" class="btn btn-outline-secondary">
+                        ← Back to Blog
+                    </a>
+
                 </div>
-
-                <hr class="my-5">
-
-                <a href="{{ route('blog.index') }}" class="btn btn-outline-secondary">
-                    ← Back to Blog
-                </a>
-
             </div>
         </div>
-
-    </div>
+    </article>
 @endsection

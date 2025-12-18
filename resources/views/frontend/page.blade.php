@@ -3,6 +3,10 @@
 @section('title', $page->meta_title ?? $page->title)
 @section('meta_description', $page->meta_description)
 
+@section('header_title', $page->meta_title ?? $page->title)
+@section('header_subtitle', $page->meta_title ?? $page->title)
+@section('header_image', asset('assets/img/blog-bg.jpg'))
+
 @section('content')
     <div class="container py-5">
         <div class="row">

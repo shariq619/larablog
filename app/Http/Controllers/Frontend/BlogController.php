@@ -12,7 +12,7 @@ class BlogController extends Controller
         $posts = Post::with('category')
             ->where('status', 'published')
             ->latest()
-            ->paginate(9);
+            ->paginate(2);
 
         return view('frontend.blog.index', compact('posts'));
     }

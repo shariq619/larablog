@@ -35,14 +35,15 @@ class PostController extends Controller
         $data = $request->only(['category_id', 'title', 'content', 'excerpt', 'status']);
         $data['slug'] = Str::slug($request->title);
 
-        if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
-        }
+        $post = Post::create($data);
 
-        Post::create($data);
+        if ($request->hasFile('featured_image')) {
+            $post->addMediaFromRequest('featured_image')->toMediaCollection('featured_images');
+        }
 
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
+
 
     public function edit(Post $post)
     {
@@ -63,11 +64,14 @@ class PostController extends Controller
         $data = $request->only(['category_id', 'title', 'content', 'excerpt', 'status']);
         $data['slug'] = Str::slug($request->title);
 
-        if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
-        }
-
         $post->update($data);
+
+        if ($request->hasFile('featured_image')) {
+            // Optionally remove old image
+            $post->clearMediaCollection('featured_images');
+
+            $post->addMediaFromRequest('featured_image')->toMediaCollection('featured_images');
+        }
 
         return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }

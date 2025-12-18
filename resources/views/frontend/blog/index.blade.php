@@ -3,52 +3,45 @@
 @section('title', 'Blog')
 
 @section('content')
-    <div class="container py-5">
-
-        <h1 class="mb-4">Blog</h1>
-
-        {{-- Loop posts --}}
-        <div class="row g-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
             @forelse ($posts as $post)
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-
-                        @if($post->image)
-                            <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
-                        @endif
-
-                        <div class="card-body">
-                            <small class="text-muted">
-                                {{ $post->category->name ?? 'Uncategorized' }}
-                            </small>
-
-                            <h5 class="card-title mt-2">
-                                {{ $post->title }}
-                            </h5>
-
-                            <p class="card-text text-muted">
-                                {!! Str::limit(strip_tags($post->content), 120) !!}
-                            </p>
-                        </div>
-
-                        <div class="card-footer bg-white border-0">
-                            <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-sm btn-outline-primary">
-                                Read More
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="{{ route('blog.show', $post->slug) }}">
+                    <h2 class="post-title">  {{ $post->title }}</h2>
+                    <h3 class="post-subtitle"> {!! Str::limit(strip_tags($post->content), 120) !!}</h3>
+                </a>
+                <p class="post-meta">
+{{--                    <a href="{{ route('blog.show', $post->slug) }}">Start Bootstrap</a>--}}
+                     {{ $post->created_at->format('F d, Y') }}
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
             @empty
-                <div class="col-12 text-center">
-                    <p class="text-muted">No posts found.</p>
-                </div>
+                <p class="text-muted">No posts found.</p>
             @endforelse
-        </div>
 
-        {{-- Pagination --}}
-        <div class="mt-4">
-            {{ $posts->links() }}
         </div>
-
     </div>
+
+    <div class="d-flex justify-content-between mb-4">
+        @if ($posts->onFirstPage())
+            <span></span>
+        @else
+            <a class="btn btn-outline-primary text-uppercase"
+               href="{{ $posts->previousPageUrl() }}">
+                ← Newer Posts
+            </a>
+        @endif
+
+        @if ($posts->hasMorePages())
+            <a class="btn btn-primary text-uppercase"
+               href="{{ $posts->nextPageUrl() }}">
+                Older Posts →
+            </a>
+        @endif
+    </div>
+
 @endsection

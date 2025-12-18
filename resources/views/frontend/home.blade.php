@@ -4,104 +4,18 @@
 
 @section('content')
 
-    {{-- HERO --}}
-    <section class="bg-light py-5">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold">Welcome to My CMS</h1>
-            <p class="lead text-muted mt-3">
-                A simple Laravel CMS with Pages, Blog & Admin Panel
-            </p>
-
-            <a href="#" class="btn btn-primary btn-lg mt-3">View Blog</a>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates
+                odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus
+                consectetur?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque
+                architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in
+                officia voluptas voluptatibus, minus!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex
+                itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit
+                tempora!</p>
         </div>
-    </section>
-
-    {{-- FEATURES --}}
-    <section class="py-5">
-        <div class="container">
-            <div class="row text-center g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Pages</h5>
-                            <p class="card-text text-muted">
-                                Create About, Contact, Portfolio pages from admin.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Blog</h5>
-                            <p class="card-text text-muted">
-                                Categories, featured images & WYSIWYG editor.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Admin Panel</h5>
-                            <p class="card-text text-muted">
-                                Secure admin panel powered by Laravel Breeze.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- LATEST POSTS (STATIC FOR NOW) --}}
-    <section class="bg-light py-5">
-        <div class="container">
-            <h2 class="mb-4 text-center">Latest Blog Posts</h2>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/600x350" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">Sample Blog Post</h5>
-                            <p class="card-text text-muted">
-                                This will be dynamic once blog is wired.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/600x350" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">Another Post</h5>
-                            <p class="card-text text-muted">
-                                SEO friendly SSR blog pages.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/600x350" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">CMS Ready</h5>
-                            <p class="card-text text-muted">
-                                Controlled fully from admin panel.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
 @endsection
