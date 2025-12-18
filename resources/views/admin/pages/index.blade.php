@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Posts')
+@section('title', 'Pages')
 
 @section('content')
     <div class="mb-3">
-        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Add Post</a>
+        <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Add Page</a>
     </div>
 
     @if(session('success'))
@@ -15,27 +15,35 @@
         <thead>
         <tr>
             <th>Title</th>
+            <th>Slug</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($pages as $page)
+        @forelse($pages as $page)
             <tr>
                 <td>{{ $page->title }}</td>
-                <td>{{ $page->category->name ?? '-' }}</td>
+                <td>{{ $page->slug }}</td>
                 <td>{{ ucfirst($page->status) }}</td>
                 <td>
                     <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('admin.pages.destroy', $page->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure?')">
+
+                    <form action="{{ route('admin.pages.destroy', $page->id) }}"
+                          method="POST"
+                          class="d-inline-block"
+                          onsubmit="return confirm('Are you sure?')">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger btn-sm">Delete</button>
                     </form>
-                    <a href="{{ route('admin.pages.show', $page->id) }}" class="btn btn-info btn-sm">View</a>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="4" class="text-center">No pages found.</td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 @endsection

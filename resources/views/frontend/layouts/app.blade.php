@@ -23,7 +23,7 @@
             {{-- Left Menu --}}
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
+
 
                 {{-- Dynamic Pages --}}
                 @if(isset($menuPages) && $menuPages->count())
@@ -35,6 +35,8 @@
                         </li>
                     @endforeach
                 @endif
+
+                <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
             </ul>
 
             {{-- Right Auth Menu --}}
