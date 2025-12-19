@@ -21,6 +21,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PageController;
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 /*
 |--------------------------------------------------------------------------
 | Public Frontend Routes
@@ -82,7 +86,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -91,3 +95,5 @@ require __DIR__.'/auth.php';
 */
 
 Route::get('/{slug}', [FrontPageController::class, 'show'])->name('page.show');
+
+
