@@ -57,16 +57,17 @@
 @php
     $heroImage = $post->getFirstMediaUrl('featured_images', 'optimized')
                  ?: asset('assets/img/home-bg.jpg');
+    $webpImage = $post->getFirstMediaUrl('featured_images', 'webp');
 @endphp
 
     <!-- Optimized Hero Section with Background Effect -->
-<header class="masthead position-relative" style="min-height: 400px; overflow: hidden;">
+<header class="masthead position-relative" style="min-height: 400px; height: 60vh; max-height: 600px; overflow: hidden; background-color: #f8f9fa;">
     <!-- Background Image Container -->
-    <div class="position-absolute w-100 h-100" style="top:0; left:0; z-index:-1;">
+    <div class="position-absolute w-100 h-100" style="top:0; left:0; z-index: 0;">
         <picture>
             <!-- WebP for better performance -->
-            @if($post->getFirstMediaUrl('featured_images', 'webp'))
-                <source srcset="{{ $post->getFirstMediaUrl('featured_images', 'webp') }}" type="image/webp">
+            @if($webpImage)
+                <source srcset="{{ $webpImage }}" type="image/webp">
             @endif
             <img
                 src="{{ $heroImage }}"
@@ -75,15 +76,15 @@
                 fetchpriority="high"
                 width="1920"
                 height="1080"
-                style="width:100%; height:100%; object-fit:cover;"
+                style="width:100%; height:100%; object-fit:cover; display:block;"
             >
         </picture>
         <!-- Optional overlay for better text readability -->
-        <div class="position-absolute w-100 h-100" style="background: rgba(0,0,0,0.3); top:0; left:0;"></div>
+        <div class="position-absolute w-100 h-100" style="background: rgba(0,0,0,0.3); top:0; left:0; z-index: 1;"></div>
     </div>
 
     <!-- Content Container -->
-    <div class="container position-relative px-4 px-lg-5 h-100">
+    <div class="container position-relative px-4 px-lg-5 h-100" style="z-index: 2;">
         <div class="row gx-4 gx-lg-5 justify-content-center align-items-center h-100">
             <div class="col-md-10 col-lg-8 col-xl-7 text-center text-white">
                 <h1 class="display-5 fw-bold mb-3">{{ $post->title }}</h1>
