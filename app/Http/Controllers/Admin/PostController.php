@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -29,9 +30,7 @@ class PostController extends Controller
             'title' => 'required|unique:posts,title',
             'content' => 'required',
             'status' => 'required|in:published,draft',
-            'featured_image' => 'nullable|image|max:2048',
-            'gallery_images' => 'nullable|array',
-            'gallery_images.*' => 'image|max:4096',
+            'featured_image' => 'nullable|image|max:2048'
         ]);
 
         $data = $request->only(['category_id', 'title', 'content', 'excerpt', 'status']);
@@ -41,12 +40,6 @@ class PostController extends Controller
 
         if ($request->hasFile('featured_image')) {
             $post->addMediaFromRequest('featured_image')->toMediaCollection('featured_images');
-        }
-
-        if ($request->hasFile('gallery_images')) {
-            foreach ($request->file('gallery_images') as $img) {
-                $post->addMedia($img)->toMediaCollection('post_images'); // ✅ multiple images collection
-            }
         }
 
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
@@ -80,7 +73,9 @@ class PostController extends Controller
             'title' => 'required|unique:posts,title,' . $post->id,
             'content' => 'required',
             'status' => 'required|in:published,draft',
-            'featured_image' => 'nullable|image|max:2048'
+            'featured_image' => 'nullable|image|max:2048',
+           // 'gallery_images' => 'nullable|array',
+           // 'gallery_images.*' => 'image|max:4096',
         ]);
 
         $data = $request->only(['category_id', 'title', 'content', 'excerpt', 'status']);
@@ -88,18 +83,27 @@ class PostController extends Controller
 
         $post->update($data);
 
+        // Handle featured image with Spatie
         if ($request->hasFile('featured_image')) {
-            // Optionally remove old image
-            if ($post->featured_image) {
-                Storage::delete($post->featured_image);
-            }
+            // Remove old featured image
+            $post->clearMediaCollection('featured_images');
 
-            $data['featured_image'] = $request->file('featured_image')->store('featured_images', 'public');
-            $post->update(['featured_image' => $data['featured_image']]);
+            $post->addMediaFromRequest('featured_image')
+                ->toMediaCollection('featured_images');
         }
 
-        return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
+        // Handle gallery images
+//        if ($request->hasFile('gallery_images')) {
+//            foreach ($request->file('gallery_images') as $img) {
+//                $post->addMedia($img)
+//                    ->toMediaCollection('post_images');
+//            }
+//        }
+
+        return redirect()->route('admin.posts.index')
+            ->with('success', 'Post updated successfully.');
     }
+
 
     public function destroy(Post $post)
     {

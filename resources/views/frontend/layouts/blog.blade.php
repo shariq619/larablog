@@ -61,12 +61,10 @@
     </div>
 </nav>
 
-@php
-    $headerImage = $headerImage ?? asset('assets/img/home-bg.jpg');
-@endphp
 
+@php($url = $post->getFirstMediaUrl('featured_images') ?: asset('assets/img/home-bg.jpg'))
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('{{ $headerImage }}')">
+<header class="masthead" style="background-image: url('{{ $url }}')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -82,9 +80,7 @@
     </div>
 </header>
 
-
 @yield('content')
-
 
 <footer class="border-top">
     <div class="container px-4 px-lg-5">

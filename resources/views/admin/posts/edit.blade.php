@@ -57,7 +57,7 @@
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
                                         <textarea class="form-control @error('content') is-invalid @enderror"
-                                                  id="content" name="content" rows="10"
+                                                  id="content" name="content"
                                                   placeholder="Write your post content here" required>{{ old('content', $post->content) }}</textarea>
                                         @error('content')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -152,6 +152,17 @@
     <script>
         ClassicEditor
             .create(document.querySelector('#content'), {
+
+                // Set initial height
+                height: '60px',
+
+                // Enable auto-grow
+                autogrow: {
+                    minHeight: 400,
+                    maxHeight: 1200
+                },
+
+
                 toolbar: {
                     items: [
                         'heading', '|',
@@ -192,4 +203,16 @@
                 console.error(error);
             });
     </script>
+@endpush
+
+@push('admin_css')
+    <style>
+        .ck.ck-editor {
+            min-height: 120px;
+        }
+
+        .ck-editor__editable_inline {
+            min-height: 120px;
+        }
+    </style>
 @endpush

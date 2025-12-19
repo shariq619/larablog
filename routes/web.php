@@ -55,9 +55,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     })->name('dashboard');
 
     Route::resource('categories', CategoryController::class);
-    Route::resource('posts', PostController::class);
 
-    // routes/web.php
+    Route::resource('posts', PostController::class);
     Route::post('/posts/ckeditor/upload', [PostController::class, 'ckeditorUpload'])
         ->name('posts.ckeditor.upload');
 

@@ -56,7 +56,7 @@
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
                                         <textarea class="form-control @error('content') is-invalid @enderror"
-                                                  id="content" name="content" rows="10"
+                                                  id="content" name="content"
                                                   placeholder="Write your post content here" >{{ old('content') }}</textarea>
                                         @error('content')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -117,16 +117,16 @@
                                                 <div class="form-text">Max size: 2MB. Supported formats: JPG, PNG, GIF, WebP</div>
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="gallery_images" class="form-label">Gallery Images</label>
-                                                <input type="file" class="form-control @error('gallery_images.*') is-invalid @enderror"
-                                                       id="gallery_images" name="gallery_images[]"
-                                                       multiple accept="image/*">
-                                                @error('gallery_images.*')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <div class="form-text">You can select multiple images for the gallery.</div>
-                                            </div>
+{{--                                            <div class="mb-3">--}}
+{{--                                                <label for="gallery_images" class="form-label">Gallery Images</label>--}}
+{{--                                                <input type="file" class="form-control @error('gallery_images.*') is-invalid @enderror"--}}
+{{--                                                       id="gallery_images" name="gallery_images[]"--}}
+{{--                                                       multiple accept="image/*">--}}
+{{--                                                @error('gallery_images.*')--}}
+{{--                                                <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                                @enderror--}}
+{{--                                                <div class="form-text">You can select multiple images for the gallery.</div>--}}
+{{--                                            </div>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -152,6 +152,17 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
     <script>
         CKEDITOR.ClassicEditor.create(document.querySelector('#content'), {
+
+            // Set initial height
+            height: '60px',
+
+            // Enable auto-grow
+            autogrow: {
+                minHeight: 400,
+                maxHeight: 1200
+            },
+
+
             toolbar: {
                 items: [
                     'heading', '|', 'bold', 'italic', 'link',
@@ -201,4 +212,15 @@
             })
             .catch(console.error);
     </script>
+@endpush
+@push('admin_css')
+    <style>
+        .ck.ck-editor {
+            min-height: 120px;
+        }
+
+        .ck-editor__editable_inline {
+            min-height: 120px;
+        }
+    </style>
 @endpush
