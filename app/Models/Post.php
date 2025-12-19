@@ -25,11 +25,14 @@ class Post extends Model implements HasMedia // <-- add this
         return $this->belongsTo(Category::class);
     }
 
-    public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
+    // In your Post model
+    public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
-            ->width(300)
-            ->height(200)
-            ->sharpen(10);
+        $this->addMediaConversion('optimized')
+            ->width(1920)
+            ->height(1080)
+            ->quality(80)
+            ->optimize()
+            ->withResponsiveImages();
     }
 }

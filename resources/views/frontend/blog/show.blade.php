@@ -3,10 +3,6 @@
 @section('title', $post->meta_title ?? $post->title)
 @section('meta_description', $post->meta_description)
 
-@php
-    //$headerImage = $post->getFirstMediaUrl('featured_images');
-@endphp
-
 @section('content')
     <!-- Post Content-->
     <article class="mb-4">
