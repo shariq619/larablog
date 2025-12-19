@@ -19,7 +19,6 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet"/>
 </head>
-
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
