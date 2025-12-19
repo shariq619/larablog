@@ -67,26 +67,44 @@
 </nav>
 
 
+<!-- Page Header -->
+<!-- Replace the entire <header class="masthead"> section with: -->
+{{--<header class="masthead position-relative">--}}
+{{--    <img--}}
+{{--        src="{{ $url }}"--}}
+{{--        alt="{{ $post->title }}"--}}
+{{--        loading="eager"--}}
+{{--        fetchpriority="high"--}}
+{{--        width="1920"--}}
+{{--        height="1080"--}}
+{{--        style="width:100%; height:auto; object-fit:cover; position:absolute; inset:0; z-index:-1;"--}}
+{{--    >--}}
+{{--    <div class="container position-relative px-4 px-lg-5" style="z-index:1;">--}}
+{{--        <div class="row gx-4 gx-lg-5 justify-content-center">--}}
+{{--            <div class="col-md-10 col-lg-8 col-xl-7">--}}
+{{--                <div class="post-heading text-white">--}}
+{{--                    <h1>{{ $post->title }}</h1>--}}
+{{--                    <h2 class="subheading">{{ $post->excerpt }}</h2>--}}
+{{--                    <span class="meta">--}}
+{{--                        {{ $post->created_at->format('F d, Y') }}--}}
+{{--                    </span>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</header>--}}
+
+
 @php
     $url = $post->getFirstMediaUrl('featured_images', 'optimized')
            ?: asset('assets/img/home-bg.jpg');
 @endphp
 <!-- Page Header -->
-<!-- Replace the entire <header class="masthead"> section with: -->
-<header class="masthead position-relative">
-    <img
-        src="{{ $url }}"
-        alt="{{ $post->title }}"
-        loading="eager"
-        fetchpriority="high"
-        width="1920"
-        height="1080"
-        style="width:100%; height:auto; object-fit:cover; position:absolute; inset:0; z-index:-1;"
-    >
-    <div class="container position-relative px-4 px-lg-5" style="z-index:1;">
+<header class="masthead" style="background-image: url('{{ $url }}')">
+    <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="post-heading text-white">
+                <div class="post-heading">
                     <h1>{{ $post->title }}</h1>
                     <h2 class="subheading">{{ $post->excerpt }}</h2>
                     <span class="meta">
