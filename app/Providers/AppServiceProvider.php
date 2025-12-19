@@ -21,14 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('frontend.layouts.app', function ($view) {
-            $menuPages = \App\Models\Page::where('status', 'published')
-                ->where('show_in_menu', true)
-                ->orderBy('menu_order')
-                ->get();
+        view()->composer(
+            ['frontend.layouts.app', 'frontend.layouts.blog'],
+            function ($view) {
+                $menuPages = Page::where('status', 'published')
+                    ->where('show_in_menu', true)
+                    ->orderBy('menu_order')
+                    ->get();
 
-            $view->with('menuPages', $menuPages);
-        });
-
+                $view->with('menuPages', $menuPages);
+            }
+        );
     }
 }
