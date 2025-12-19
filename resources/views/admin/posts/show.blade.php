@@ -11,9 +11,14 @@
 
             <div>{!! $post->content !!}</div>
 
-            @if($post->getFirstMediaUrl('featured_images'))
-                <img src="{{ $post->getFirstMediaUrl('featured_images') }}" alt="{{ $post->title }}" class="img-fluid mb-3">
+            <div>
+            @php($url = $post->getFirstMediaUrl('featured_images', 'thumb') ?: $post->getFirstMediaUrl('featured_images'))
+            @if($url)
+                <img src="{{ $url }}" class="img-fluid mb-3" alt="{{ $post->title }}">
             @endif
+            </div>
+
+            <hr>
 
 
             <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary mt-3">Back to Posts</a>

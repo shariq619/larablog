@@ -26,10 +26,12 @@ class PostController extends Controller
     {
         $request->validate([
             'category_id' => 'required|exists:categories,id',
-            'title' => 'required|unique:posts',
+            'title' => 'required|unique:posts,title',
             'content' => 'required',
             'status' => 'required|in:published,draft',
-            'featured_image' => 'nullable|image|max:2048'
+            'featured_image' => 'nullable|image|max:2048',
+            'gallery_images' => 'nullable|array',
+            'gallery_images.*' => 'image|max:4096',
         ]);
 
         $data = $request->only(['category_id', 'title', 'content', 'excerpt', 'status']);
@@ -41,7 +43,27 @@ class PostController extends Controller
             $post->addMediaFromRequest('featured_image')->toMediaCollection('featured_images');
         }
 
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $img) {
+                $post->addMedia($img)->toMediaCollection('post_images'); // ✅ multiple images collection
+            }
+        }
+
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
+
+    }
+
+    public function ckeditorUpload(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|image|max:4096', // CKEditor sends file in "upload"
+        ]);
+
+        $path = $request->file('upload')->store('posts/content', 'public');
+
+        return response()->json([
+            'url' => Storage::disk('public')->url($path),
+        ]);
     }
 
 
@@ -68,9 +90,12 @@ class PostController extends Controller
 
         if ($request->hasFile('featured_image')) {
             // Optionally remove old image
-            $post->clearMediaCollection('featured_images');
+            if ($post->featured_image) {
+                Storage::delete($post->featured_image);
+            }
 
-            $post->addMediaFromRequest('featured_image')->toMediaCollection('featured_images');
+            $data['featured_image'] = $request->file('featured_image')->store('featured_images', 'public');
+            $post->update(['featured_image' => $data['featured_image']]);
         }
 
         return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
